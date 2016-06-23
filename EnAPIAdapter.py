@@ -12,7 +12,7 @@ HOURLY_BASE_URL = "https://thepulseapi.earthnetworks.com/getHourly6DayForecast/d
 DEFAULT_HOURLY_PARAMS = ["forecastDateUtcStr", "cloudCoverPercent", "dewPoint", "precipCode", "precipProbability",
                          "relativeHumidity", "temperature", "thunderstormProbability", "windDirectionDegrees",
                          "windSpeed", "snowRate"]
-DEFAULT_TEN_DAY_PARAMS = ["forecastDateUtcStr","cloudCoverPercent", "dewPoint", "precipCode", "precipProbability",
+DEFAULT_TEN_DAY_PARAMS = ["forecastDateUtcStr", "cloudCoverPercent", "dewPoint", "precipCode", "precipProbability",
                           "relativeHumidity", "temperature", "thunderstormProbability", "windDirectionDegrees",
                           "windSpeed", "snowAmountMm"]
 

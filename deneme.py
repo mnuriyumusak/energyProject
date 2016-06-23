@@ -8,6 +8,9 @@ _OUTPUT_DIR = "output"
 
 
 def convert_utm_to_lat_long():
+    """
+    add new 2 column which are lat and long, create a new csv file
+    """
     f = open('res_list.csv', 'a+')
     csv_data = csv.reader(f, delimiter=';')
     new_csv_data = ""
@@ -27,6 +30,9 @@ def convert_utm_to_lat_long():
 
 
 def write_forecast_to_csv():
+    """
+    Write both daily and hourly forecast data of turbins to csv file, wtih their properties such as name,lat,long
+    """
     try:
         f = open('res_list_with_lat_long.csv', 'r+')
         csv_data = csv.reader(f, delimiter=';')
@@ -38,9 +44,9 @@ def write_forecast_to_csv():
         target_h = open(file_name_hourly, 'a+')
         target_d = open(file_name_daily, 'a+')
         for i in csv_data:
-            line_h = EnAPIAdapter.get_hourly_forecast(i,"CSV")
+            line_h = EnAPIAdapter.get_hourly_forecast(i, "CSV")
             target_h.write(line_h)
-            line_d = EnAPIAdapter.get_ten_day_forecast(i,"CSV")
+            line_d = EnAPIAdapter.get_ten_day_forecast(i, "CSV")
             target_d.write(line_d)
         target_h.close()
         target_d.close()
@@ -55,5 +61,6 @@ def main():
     if not result:
         print "A problem occured ! Mission failed !"
     print str(time.clock()-t0)
+
 if __name__ == '__main__':
     main()
