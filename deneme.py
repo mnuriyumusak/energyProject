@@ -4,7 +4,18 @@ import EnAPIAdapter
 import time
 import os
 import schedule
+import logging
+
+
 _OUTPUT_DIR = "output"
+
+
+logger = logging.getLogger('yenitay')
+logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG)
+hdlr = logging.FileHandler(os.getcwd() + '/logs.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
 
 
 def convert_utm_to_lat_long():
@@ -44,6 +55,7 @@ def write_forecast_to_csv():
         target_h = open(file_name_hourly, 'a+')
         target_d = open(file_name_daily, 'a+')
         for i in csv_data:
+            logger.info(str(i[0]) + "," + str(i[1]) + " aliniyor.")
             line_h = EnAPIAdapter.get_hourly_forecast(i, "CSV")
             target_h.write(line_h)
             line_d = EnAPIAdapter.get_ten_day_forecast(i, "CSV")
@@ -59,15 +71,19 @@ def run_script():
     t0 = time.clock()
     result = write_forecast_to_csv()
     if not result:
-        print "A problem occured ! Mission failed !"
-    print str(time.clock()-t0)
+        logger.error("A problem occured ! Mission failed !")
+    print
+    logger.info("Process finished in " + str(time.clock()-t0) + " seconds.")
 
 
 def main():
-    schedule.every().day.at("00.00").do(run_script)
+    run_script()
+    """
+    schedule.every(30).minutes.do(run_script)
     while 1:
         schedule.run_pending()
         time.sleep(1)
-
+    """
 if __name__ == '__main__':
     main()
+
