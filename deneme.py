@@ -3,7 +3,7 @@ import csv
 import EnAPIAdapter
 import time
 import os
-
+import schedule
 _OUTPUT_DIR = "output"
 
 
@@ -55,12 +55,19 @@ def write_forecast_to_csv():
         return False
 
 
-def main():
+def run_script():
     t0 = time.clock()
     result = write_forecast_to_csv()
     if not result:
         print "A problem occured ! Mission failed !"
     print str(time.clock()-t0)
+
+
+def main():
+    schedule.every().day.at("00.00").do(run_script)
+    while 1:
+        schedule.run_pending()
+        time.sleep(1)
 
 if __name__ == '__main__':
     main()
