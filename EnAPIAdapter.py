@@ -98,12 +98,6 @@ def convert_to_csv_ten_day(infos, json_data, params):
     """
     json_data = json_data["dailyForecastPeriods"]
     csv_string = ""
-    """
-    for i in range(2):
-        if i == 1:
-            if (int(str(json_data[i][params[0]][8:10])) <= int(time.strftime("%d"))) == False:
-                break
-    """
 
     for count in range(len(params)):
         if count == 0:
@@ -122,7 +116,7 @@ def convert_to_csv_hourly(infos, json_data, params):
     for row in json_data:
         enter = False
         for p in range(len(params)):
-            if p==0:
+            if p == 0:
                 if int(str(row[params[p]][8:10])) <= int(time.strftime("%d")):
                     enter = True
                     csv_string += str(row[params[p]])[0:len(str(json_data[0][params[p]]))-1] + ";"
