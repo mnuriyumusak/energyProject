@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import utm
 import csv
 import EnAPIAdapter
@@ -105,7 +106,7 @@ def convert_utm_to_lat_long():
     csv_data = csv.reader(f, delimiter=';')
     new_csv_data = ""
     for item in csv_data:
-        lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'U')
+        lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
         elevation = get_elevation(lat_lng[0],lat_lng[1])
         item.append(lat_lng[0])
         item.append(lat_lng[1])
@@ -116,7 +117,7 @@ def convert_utm_to_lat_long():
                 new_csv_data += ";"
         new_csv_data += "\n"
     f.close()
-    target = open("res_list_with_lat_long.csv", 'a+')
+    target = open("rest_list_with_lat_long.csv", 'a+')
     target.write(new_csv_data)
     target.close()
 
@@ -169,10 +170,10 @@ def find_center():
         center_N += float(item[3])
     center_E = center_E / 46
     center_N = center_N / 46
-    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'U')
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'S')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "aliaga;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
-                   +";" + str(elevation) + ";" + "\n"
+    centers_str += "Aliağa;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
     f.close()
 
     f = open('bandirma.csv', 'a+')
@@ -184,10 +185,10 @@ def find_center():
         center_N += float(item[3])
     center_E = center_E / 27
     center_N = center_N / 27
-    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'U')
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'T')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "bandirma;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
-                   +";" + str(elevation) + ";" + "\n"
+    centers_str += "Bandırma;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
     f.close()
 
     f = open('mazi.csv', 'a+')
@@ -199,10 +200,10 @@ def find_center():
         center_N += float(item[3])
     center_E = center_E / 21
     center_N = center_N / 21
-    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'U')
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'S')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "mazi;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
-                   +";" + str(elevation) + ";" + "\n"
+    centers_str += "Mazi;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
     f.close()
 
     f = open('soma.csv', 'a+')
@@ -214,10 +215,10 @@ def find_center():
         center_N += float(item[3])
     center_E = center_E / 46
     center_N = center_N / 46
-    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'U')
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'S')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "soma;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
-                   +";" + str(elevation) + ";" + "\n"
+    centers_str += "Soma;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
     f.close()
 
     f = open('zeytineli.csv', 'a+')
@@ -229,20 +230,68 @@ def find_center():
         center_N += float(item[3])
     center_E = center_E / 20
     center_N = center_N / 20
-    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'U')
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'S')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "zeytineli;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
-                   +";" + str(elevation) + ";" + "\n"
+    centers_str += "Zeytineli;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
     f.close()
+
+
+    f = open('dinar.csv', 'a+')
+    csv_data = csv.reader(f, delimiter=';')
+    center_E = 0
+    center_N = 0
+    for item in csv_data:
+        center_E += float(item[2])
+        center_N += float(item[3])
+    center_E = center_E / 50
+    center_N = center_N / 50
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 36, 'S')
+    elevation = get_elevation(lat_lng[0],lat_lng[1])
+    centers_str += "Dinar;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
+    f.close()
+
+    f = open('senkoy.csv', 'a+')
+    csv_data = csv.reader(f, delimiter=';')
+    center_E = 0
+    center_N = 0
+    for item in csv_data:
+        center_E += float(item[2])
+        center_N += float(item[3])
+    center_E = center_E / 12
+    center_N = center_N / 12
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 37, 'S')
+    elevation = get_elevation(lat_lng[0],lat_lng[1])
+    centers_str += "Eolos-Şenköy;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
+    f.close()
+
+    f = open('kanije.csv', 'a+')
+    csv_data = csv.reader(f, delimiter=';')
+    center_E = 0
+    center_N = 0
+    for item in csv_data:
+        center_E += float(item[2])
+        center_N += float(item[3])
+    center_E = center_E / 20
+    center_N = center_N / 20
+    lat_lng = utm.to_latlon(float(center_E), float(center_N), 35, 'S')
+    elevation = get_elevation(lat_lng[0],lat_lng[1])
+    centers_str += "Kanije;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+                   +";" + str(elevation) + "\n"
+    f.close()
+
 
     target = open("centers.csv", 'a+')
     target.write(centers_str)
     target.close()
 
 
+
 def main():
-    #convert_utm_to_lat_long()
-    find_center()
+    convert_utm_to_lat_long()
+    #find_center()
     """
     logger.info("Main is starting to run.")
     schedule.every(30).minutes.do(run_script)
