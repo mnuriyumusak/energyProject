@@ -106,7 +106,25 @@ def convert_utm_to_lat_long():
     csv_data = csv.reader(f, delimiter=';')
     new_csv_data = ""
     for item in csv_data:
-        lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+        if item[0] == "aliaga":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+        elif item[0] == "bandirma":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'T')
+        elif item[0] == "mazi":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+        elif item[0] == "soma":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+        elif item[0] == "bandirma":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'T')
+        elif item[0] == "zeytineli":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+        elif item[0] == "dinar":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 36, 'S')
+        elif item[0] == "Eolos-�enk�y":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 37, 'S')
+        elif item[0] == "Kanije":
+            lat_lng = utm.to_latlon(float(float(item[2])), float(float(item[3])), 35, 'S')
+
         elevation = get_elevation(lat_lng[0],lat_lng[1])
         item.append(lat_lng[0])
         item.append(lat_lng[1])
@@ -248,9 +266,10 @@ def find_center():
     center_N = center_N / 50
     lat_lng = utm.to_latlon(float(center_E), float(center_N), 36, 'S')
     elevation = get_elevation(lat_lng[0],lat_lng[1])
-    centers_str += "Dinar;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
+    centers_str  += "Dinar;C;" + str(center_E) + ";" + str(center_N) + ";" + str(lat_lng[0])+ ";" + str(lat_lng[1])\
                    +";" + str(elevation) + "\n"
     f.close()
+
 
     f = open('senkoy.csv', 'a+')
     csv_data = csv.reader(f, delimiter=';')
